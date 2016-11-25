@@ -1,5 +1,6 @@
 #!/bin/bash
 
+syslogd &
 postfix start
 
 trap "postfix stop" SIGINT SIGTERM

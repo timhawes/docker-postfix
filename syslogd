@@ -1,0 +1,21 @@
+#!/usr/bin/perl -T
+
+use strict;
+use IO::Socket;
+
+my $MAXLEN = 1524;
+
+$| = 1;
+
+unlink("/dev/log");
+my $sock = IO::Socket::UNIX->new(Type => SOCK_DGRAM, Local => '/dev/log') || die("Socket: $@");
+
+my $buf;
+while (1) {
+  $sock->recv($buf, $MAXLEN);
+  if ($buf =~ m, postfix/(.+)\s*$,) {
+    print "$1\n";
+  } else {
+    print "$buf\n";
+  }
+};
