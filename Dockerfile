@@ -5,7 +5,7 @@ ENV POSTFIX_VERSION 3.1.3
 
 COPY wietse.pgp /usr/src/
 
-RUN installDeps="gnupg libasan1 libatomic1 libcilkrts5 \
+RUN installDeps="gnupg ca-certificates libasan1 libatomic1 libcilkrts5 \
         libcloog-isl4 libffi6 libgdbm3 libgmp10 libgnutls-deb0-28 libgomp1 \
         libhogweed2 libicu52 libidn11 libisl10 libitm1 liblsan0 libmpc3 \
         libmpfr4 libnettle4 libp11-kit0 libpsl0 libquadmath0 libtasn1-6 \
