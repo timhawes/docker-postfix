@@ -7,10 +7,11 @@ COPY wietse.pgp /usr/src/
 
 RUN installDeps="gnupg ca-certificates libasan1 libatomic1 libcilkrts5 \
         libcloog-isl4 libffi6 libgdbm3 libgmp10 libgnutls-deb0-28 libgomp1 \
-        libhogweed2 libicu52 libidn11 libisl10 libitm1 liblsan0 libmpc3 \
-        libmpfr4 libnettle4 libp11-kit0 libpsl0 libquadmath0 libssl1.0.0 \
-        libtasn1-6 libtsan0 libubsan0" \
-    && buildDeps="build-essential wget libdb-dev libicu-dev libssl-dev" \
+        libhogweed2 libicu52 libldap-2.4-2 libidn11 libisl10 libitm1 liblsan0 \
+        libmpc3 libmpfr4 libnettle4 libp11-kit0 libpsl0 libquadmath0 libsasl2-2 \
+        libsasl2-modules libsasl2-modules-db libssl1.0.0 libtasn1-6 libtsan0 \
+        libubsan0" \
+    && buildDeps="build-essential wget libdb-dev libicu-dev libldap-dev libsasl2-dev libssl-dev" \
     && apt-get update \
     && apt-get install -y --no-install-recommends $installDeps $buildDeps \
     && cd /usr/src \
@@ -19,7 +20,9 @@ RUN installDeps="gnupg ca-certificates libasan1 libatomic1 libcilkrts5 \
     && gpg --import wietse.pgp && gpg --verify postfix-$POSTFIX_VERSION.tar.gz.sig \
     && tar xfz postfix-$POSTFIX_VERSION.tar.gz \
     && cd postfix-$POSTFIX_VERSION \
-    && make makefiles CCARGS="-DUSE_TLS" AUXLIBS="-lssl -lcrypto" \
+    && make makefiles \
+        CCARGS="-DUSE_TLS -DHAS_LDAP -DUSE_LDAP_SASL -I/usr/include/sasl" \
+        AUXLIBS="-lssl -lcrypto -lldap -llber" \
     && make -j$(nproc) \
     && mkdir -p /etc/postfix \
     && groupadd -r postfix \
