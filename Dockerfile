@@ -33,6 +33,7 @@ RUN installDeps="gnupg ca-certificates libasan1 libatomic1 libcilkrts5 \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
 
+COPY syslogd /usr/local/sbin/syslogd
 COPY entrypoint.sh /entrypoint.sh
 
 EXPOSE 25 587
