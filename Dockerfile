@@ -1,7 +1,7 @@
 FROM debian:jessie
 
 ENV POSTFIX_MIRROR http://cdn.postfix.johnriley.me/mirrors/postfix-release/official
-ENV POSTFIX_VERSION 3.2.4
+ENV POSTFIX_VERSION 3.2.5
 
 COPY wietse.pgp /usr/src/
 
