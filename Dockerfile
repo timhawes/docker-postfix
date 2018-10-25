@@ -10,7 +10,7 @@ RUN installDeps="gnupg ca-certificates libasan1 libatomic1 libcilkrts5 \
         libhogweed2 libicu52 libldap-2.4-2 libidn11 libisl10 libitm1 liblsan0 \
         libmpc3 libmpfr4 libnettle4 libp11-kit0 libpsl0 libquadmath0 libsasl2-2 \
         libsasl2-modules libsasl2-modules-db libssl1.0.0 libtasn1-6 libtsan0 \
-        libubsan0" \
+        libubsan0 netbase" \
     && buildDeps="build-essential wget libdb-dev libicu-dev libldap-dev libsasl2-dev libssl-dev" \
     && apt-get update \
     && apt-get install -y --no-install-recommends $installDeps $buildDeps \
