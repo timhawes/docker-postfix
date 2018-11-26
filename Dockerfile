@@ -11,13 +11,14 @@ RUN installDeps="gnupg ca-certificates libasan3 libatomic1 libcilkrts5 \
         libmpc3 libmpfr4 libnettle6 libp11-kit0 libpsl5 libquadmath0 libsasl2-2 \
         libsasl2-modules libsasl2-modules-db libssl1.1 libtasn1-6 libtsan0 \
         libubsan0 netbase" \
-    && buildDeps="build-essential wget libdb-dev libicu-dev libldap-dev libsasl2-dev libssl-dev" \
+    && buildDeps="build-essential wget libdb-dev libicu-dev libldap-dev libsasl2-dev libssl-dev m4" \
     && apt-get update \
     && apt-get install -y --no-install-recommends $installDeps $buildDeps \
     && cd /usr/src \
     && wget $POSTFIX_MIRROR/postfix-$POSTFIX_VERSION.tar.gz \
     && wget $POSTFIX_MIRROR/postfix-$POSTFIX_VERSION.tar.gz.gpg2 \
-    && gpg --import wietse.pgp && gpg --verify postfix-$POSTFIX_VERSION.tar.gz.gpg2 postfix-$POSTFIX_VERSION.tar.gz \
+    && gpg --no-tty --import wietse.pgp \
+    && gpg --verify postfix-$POSTFIX_VERSION.tar.gz.gpg2 postfix-$POSTFIX_VERSION.tar.gz \
     && tar xfz postfix-$POSTFIX_VERSION.tar.gz \
     && cd postfix-$POSTFIX_VERSION \
     && make makefiles \
